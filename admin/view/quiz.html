@@ -1,0 +1,169 @@
+<div class="">
+	<div class="page-header-title">
+		<h4 class="page-title">Cadastro de Quiz</h4>
+	</div>
+</div>
+
+<div class="page-content-wrapper ">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-lg-6">
+				<div class="panel ">
+					<div class="panel-heading">
+						<h4 class="panel-title text-muted font-light">Quiz</h4>
+					</div>
+					<div class="panel-body p-t-10">
+						<div class="form-group">
+							<label>Titulo</label>
+							<input type="text" ng-model="quiz.quiz_titu" class="form-control" placeholder="Titulo">
+						</div>
+						<div class="form-group">
+							<label>Descrição</label>
+							<textarea type="text" ng-model="quiz.quiz_desc" class="form-control"></textarea>
+						</div>
+						<div>
+							<div class="panel panel-info panel-color" ng-repeat="(qk, qupe)  in quiz.qupe" >
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a class="" data-toggle="collapse" data-target="#pane_{{qk}}" aria-expanded="true" aria-controls="pane_{{qk}}">
+						        	{{qupe.qupe_desc}}
+						        </a>
+						         <button class="btn btn-info" ng-click="removePergunta(qupe)" style="float: right; margin-top: -6px;">
+							        	<i class="fa fa-minus"></i>
+							        </button>
+							        <button class="btn btn-info" ng-click="addPergunta(qk)" style="float: right; margin-top: -6px;">
+							        	<i class="fa fa-edit"></i>
+							        </button>
+									</h4>
+								</div>
+
+								<div id="pane_{{qk}}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+									<div class="panel-body"> 
+										<div class="row">
+
+											<table class="table table-bordered">
+												<thead>
+													<th width="10%">Certo</th>
+													<th width="80%">Resposta</th>
+												</thead>
+												<tbody>
+													<tr  ng-repeat="(rk, reps) in qupe.resp track by $index" >
+														<td style="padding: 15px;">
+															<!-- <center> -->
+																<div class="round">
+															    <input ng-model="reps.resp_verd" 
+															    			 type="checkbox" 
+															    			 id="checkbox_{{qk}}_{{rk}}" 
+															    			 ng-true-value="1" ng-false-value="0"
+															    			 ng-click="test('checkbox_'+qk+'_'+rk,reps)">
+															    <label for="checkbox_{{qk}}_{{rk}}"></label>
+															  </div>
+														  <!-- </center> -->
+														</td>
+														<td>
+															<div class="input-group bootstrap-touchspin">
+																<input id="demo3" type="text" ng-model="reps.resp_desc"  name="demo3" class="form-control" style="display: block;">
+																<span class="input-group-btn">
+																	<button class="btn btn-danger bootstrap-touchspin-up" 
+																					ng-click="removeResposta(qk,rk)"
+																					type="button">
+																		<i class="fa fa-trash"></i>
+																	</button>
+																</span>
+															</div>
+														</td>
+
+													</tr>
+													<tr>
+														<td colspan="2">
+															<button ng-click="addRsposta(qupe.resp)" class="col-xs-12 btn btn-info"> Adicinar resposta <i class="fa fa-plus"></i></button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<button ng-click="addPergunta()" class="col-xs-12 btn btn-info">
+								Adicinar pergunta <i class="fa fa-plus"></i>
+							</button>
+						</div>
+
+					</div>
+					<div class="panel-footer">
+						<button ng-click="cancelaQuiz()" class="btn btn-danger ">Cancelar</button>
+						<div class="pull-right ">
+							<button ng-click="salvaQuiz()" class="btn btn-info ">Salvar</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-6">
+				<div class="panel ">
+					<div class="panel-heading">
+						<h4 class="panel-title text-muted font-light">Quizzes</h4>
+					</div>
+					<div class="panel-body p-t-10">
+						<div style="border:1px solid #ddd; border-radius: 5px; ">
+							<table class="table table-hover table-fixed" style="width: 100%;" >
+								<thead>
+									<tr>
+										<th class="col-xs-1" >#</th>
+										<th class="col-xs-6" >Quiz</th>
+										<th class="col-xs-4" >Cadasto</th>
+										<th class="col-xs-1" >Status</th>
+									</tr>
+								</thead>
+								<tbody class="row">
+									<tr ng-repeat="(qi, q) in qz" >
+										<td class="col-xs-1" >
+											<button type="button" class="btn btn-info waves-effect waves-light" ng-click="carregaQuiz(q)" >
+												<i class="fa fa-edit"></i>
+											</button>
+										</td>
+										<td class="col-xs-6" >{{q.quiz_desc}}</td>
+										<td class="col-xs-4" >{{q.quiz_date}}</td>
+										<td class="col-xs-1" >
+											<button type="button" 
+															class="btn  waves-effect waves-light"  
+															ng-click="mudaStatusQuiz(q)"
+															ng-class="(q.quiz_ativ == 'A' ? 'btn-success' : 'btn-danger' )">
+												<i class="mdi mdi mdi-lock-outline"></i>
+											</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="Mpergunta" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title" id="myModalLabel">Pergunta</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Pergunta</label>
+					<input type="text" class="form-control" required placeholder="quanto é 1+35" ng-model="perg.qupe_desc">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Fechar</button>
+				<button type="button" class="btn btn-primary waves-effect waves-light" ng-click="salvaPerguta(perg)">Salvar</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,81 @@
+<div class="panel text-center" >
+	<div class="panel-heading ">
+		<h4 class="panel-title text-muted font-light">{{quiz.quiz_titu}}</h4>
+	</div>
+	<div class="panel-body p-t-10">
+		<div class="progress">
+			<div class="progress-bar progress-bar-primary progress-bar-striped active" 
+				role="progressbar" 
+				aria-valuenow="0" 
+				aria-valuemin="0" 
+				aria-valuemax="100" style="width: 0%">
+			</div>
+		</div>
+		<h2>{{quiz.quiz_desc}}</h2>
+		<hr>
+		<div ng-if="etapa == 0">
+			<div class="form-group clie_nome">
+				<label>Nome</label>
+				<input type="text" ng-model="clie.clie_nome" id="clie_nome" class="form-control"  placeholder="João">
+			</div>
+
+			<div class="form-group clie_mail">
+				<label>Email</label>
+				<input type="text" ng-model="clie.clie_mail" id="clie_mail" class="form-control"  placeholder="teste@teste.com.br">
+			</div>
+		</div>
+
+		<div ng-if="etapa == 1">
+			<table class="table table-bordered" >
+				<thead>
+					<tr>
+						<td colspan="2">
+							{{qupe.qupe_desc}}
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr  ng-repeat="(rk, reps) in qupe.resp track by $index" >
+						<td  width="10%" style="padding: 15px;">
+							<div class="round">
+						    <input ng-model="reps.resp_clie" 
+						    			 type="checkbox" 
+						    			 id="checkbox_{{$index}}" 
+						    			 ng-true-value="1" ng-false-value="0">
+						    <label for="checkbox_{{$index}}"></label>
+						  </div>
+						</td>
+						<td  width="80%">
+							{{reps.resp_desc}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div ng-show="etapa == 2">
+			<div  class="sweet-alert swal2 showSweetAlert visible" tabindex="-1" 
+						style="display: block; ">
+				<div class="icon success animate" style="display: block;"> 
+					<span class="line tip animateSuccessTip"></span> 
+					<span class="line long animateSuccessLong"></span> 
+					<div class="placeholder"></div> 
+					<div class="fix"></div> 
+				</div> 
+				<div class="icon custom" 
+						 style="display: none; background-image: url(&quot;assets/plugins/bootstrap-sweetalert/thumbs-up.jpg&quot;); width: 80px; height: 80px;">
+				</div>
+				<h2>Bom trabalho</h2>
+				<p class="lead text-muted" style="display: block;">{{text}}</p>
+			</div>
+		</div>
+
+		<div ng-show="erro" id="erro" class="alert alert-danger">{{erro}}</div>
+		<div class="pager">
+			<button ng-click="proximo()" class="btn btn-info">
+				Proximo <i class="fa fa-angle-double-right"></i>
+			</button>
+		</div>
+	</div>
+</div>
+ 

@@ -1,0 +1,73 @@
+<div class="">
+	<div class="page-header-title">
+		<h4 class="page-title">Principal</h4>
+	</div>
+</div>
+
+<div class="page-content-wrapper ">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-xs-6 col-lg-6">
+				<div class="panel ">
+					<div class="panel-heading">
+						<h4 class="panel-title text-muted font-light">Quizzes</h4>
+					</div>
+					<div class="panel-body p-t-10">
+						<div style="border:1px solid #ddd; border-radius: 5px; ">
+							<table class="table table-hover table-fixed" style="width: 100%;" >
+								<thead>
+									<tr>
+										<th class="col-xs-1" >#</th>
+										<th class="col-xs-3" >Quiz</th>
+										<th class="col-xs-3" >e-mail</th>
+										<th class="col-xs-2" >Iniciado</th>
+										<th class="col-xs-2" >Terminado</th>
+									</tr>
+								</thead>
+								<tbody class="row">
+									<tr ng-repeat="(qi, q) in qz" >
+										<td class="col-xs-1" >
+											<button type="button" class="btn btn-info waves-effect waves-light" ng-click="carregaQuizRespostas(q)" >
+												<i class="fa fa-align-justify"></i>
+											</button>
+										</td>
+										<td class="col-xs-3" >{{q.quiz_desc}}</td>
+										<td class="col-xs-3" >{{q.clie_mail}}</td>
+										<td class="col-xs-2" >{{q.qucl_dini}}</td>
+										<td class="col-xs-2" >{{q.qucl_dfim}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-6 col-lg-6" ng-if="quiz">
+				<div class="panel ">
+					<div class="panel-heading">
+						<h4 class="panel-title text-muted font-light">Quizzes</h4>
+					</div>
+					<div class="panel-body p-t-10">
+						<h4>{{quiz.quiz_titu}}</h4>
+						<p class="text-muted">{{quiz.quiz_desc}}</p>
+						<ul>
+							<li ng-repeat="qupe in quiz.qupe track by $index">
+								{{qupe.qupe_desc}}
+								<ul>
+									<li ng-repeat="resp in qupe.resp track by $index" ng-class="((resp.resp_verd == 1) ? 'alert-success' : 'alert-danger' )">
+										{{resp.resp_desc}}
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+</div>
